@@ -1,0 +1,19 @@
+.titleWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h2 {
+    margin-left: 10px;
+  }
+}
+
+.subTitle {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.btnWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
