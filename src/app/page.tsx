@@ -19,9 +19,10 @@ export default async function Home() {
         page_size: 10,
         ...params,
       });
-      questionBankList = questionBankRes.data.list;
+      return questionBankRes.data.list || [];
     } catch (error) {
       console.log("获取题库列表失败", error);
+      return [];
     }
   };
 
@@ -32,14 +33,15 @@ export default async function Home() {
         page_size: 100,
         ...params,
       });
-      questionList = questionRes.data.list;
+      return questionRes.data.list || [];
     } catch (error) {
       console.log("获取题目列表失败", error);
+      return [];
     }
   };
 
-  await getQuestionList();
-  await getQuestionBankList();
+  questionList = await getQuestionList();
+  questionBankList = await getQuestionBankList();
 
   return (
     <>
@@ -48,7 +50,7 @@ export default async function Home() {
         align="center"
         style={{ marginBottom: "20px" }}
       >
-        <h2>最新题库</h2>
+        <h2>热门题库</h2>
         <Link href="/questionBank">查看全部</Link>
       </Flex>
       <QuestionBankList questionBankList={questionBankList} />
@@ -59,7 +61,7 @@ export default async function Home() {
         justify="space-between"
         align="center"
       >
-        <h2>最新题目</h2>
+        <h2>热门题目</h2>
         <Link href="/question">查看全部</Link>
       </Flex>
       <QuestionList questionList={questionList} />

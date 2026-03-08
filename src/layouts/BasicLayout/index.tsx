@@ -37,11 +37,11 @@ const App = (props: Props) => {
       if (item.key === path) return;
       router.push(item.key);
     },
-    [path, router]
+    [path, router],
   );
 
   return (
-    <div id="basic-layout" className="max-width-container">
+    <div id="basic-layout">
       <ConfigProvider theme={antdTheme}>
         <Layout>
           <Header className="header-wrap">
@@ -71,7 +71,7 @@ const App = (props: Props) => {
             </div>
           </Header>
           <Content>
-            <div className="content-box">{children}</div>
+            <div className="max-width-container">{children}</div>
           </Content>
           <Footer className="footer">
             Ant Design ©2026 Created by Ant UED
