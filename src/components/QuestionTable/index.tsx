@@ -63,49 +63,52 @@ const App = (props: Props) => {
     },
   ];
 
-  const getQuestionList = useCallback(async () => {
-    try {
-      setTableLoading(true);
-      const { title, need_vip, difficulty } = formInstance.getFieldsValue();
-      const { data } = await getQuestionByPageAPI({
-        page_no: pagination.current,
-        page_size: pagination.pageSize,
-        title,
-        need_vip,
-        difficulty,
-      });
-      const { list, total } = data;
-      setPagination((prev) => ({
-        ...prev,
-        total,
-      }));
-      setListData(list);
-    } finally {
-      setTableLoading(false);
-    }
-  }, [pagination.current, pagination.pageSize, formInstance]);
+  const getQuestionList = useCallback(
+    async (page?: TablePaginationConfig) => {
+      try {
+        setTableLoading(true);
+        const { title, need_vip, difficulty } = formInstance.getFieldsValue();
+        const { data } = await getQuestionByPageAPI({
+          page_no: page?.current || pagination.current,
+          page_size: page?.pageSize || pagination.pageSize,
+          title,
+          need_vip,
+          difficulty,
+        });
+        const { list, total } = data;
+        setPagination((prev) => ({
+          ...prev,
+          total,
+        }));
+        setListData(list);
+      } finally {
+        setTableLoading(false);
+      }
+    },
+    [pagination.current, pagination.pageSize, formInstance, tableLoading]
+  );
 
   const pageChangeList = ({ current, pageSize }: TablePaginationConfig) => {
     setPagination((prev) => ({ ...prev, current, pageSize }));
+    getQuestionList({ current, pageSize });
   };
 
   const resetForm = () => {
     setSearchParams((prev) => ({
       ...prev,
-      title: "",
+      title: undefined,
     }));
     formInstance.resetFields();
-
     getQuestionList();
   };
 
   useEffect(() => {
-    getQuestionList();
-  }, [getQuestionList]);
+    formInstance.setFieldValue("title", searchParams.title);
+  }, [searchParams, formInstance]);
 
   return (
     <>
-      <Form form={formInstance} initialValues={{ title: searchParams.title }}>
+      <Form form={formInstance}>
         <Row gutter={[16, 24]}>
           <Col span={6}>
             <Form.Item label="标题" name="title">
@@ -126,7 +129,7 @@ const App = (props: Props) => {
           <Col span={6}>
             <Form.Item label={null}>
               <Space>
-                <Button type="primary" onClick={getQuestionList}>
+                <Button type="primary" onClick={() => getQuestionList()}>
                   搜索
                 </Button>
                 <Button onClick={resetForm}>重置</Button>

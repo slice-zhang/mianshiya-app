@@ -1,26 +1,23 @@
 "use server";
 import { getQuestionBankByPageAPI } from "@/api/questionBank";
+import { QuestionBank } from "@/api/questionBank/type";
 import { QuestionBankList } from "@/components/QuestionBankList";
-import { Card, Flex } from "antd";
+import { Flex } from "antd";
 
 export default async function QuestionBankPage() {
-  const getQuestionBankList = async (params: Record<string, any> = {}) => {
-    try {
-      const questionBankRes = await getQuestionBankByPageAPI({
-        page_no: 1,
-        page_size: 200,
-        ...params,
-      });
-      return questionBankRes.data.list || [];
-    } catch (error) {
-      console.log("获取题库列表失败", error);
-      return [];
-    }
-  };
+  let questionBankList: QuestionBank[] = [];
+  try {
+    const questionBankRes = await getQuestionBankByPageAPI({
+      page_no: 1,
+      page_size: 200,
+    });
+    questionBankList = questionBankRes.data.list || [];
+  } catch (error) {
+    console.log("获取题库列表失败", error);
+  }
 
-  const questionBankList = await getQuestionBankList();
   return (
-    <>
+    <div id="question-bank-page" className="max-width-container">
       <Flex
         justify="space-between"
         align="center"
@@ -29,6 +26,6 @@ export default async function QuestionBankPage() {
         <h2>题库大全</h2>
       </Flex>
       <QuestionBankList questionBankList={questionBankList} />
-    </>
+    </div>
   );
 }

@@ -12,39 +12,28 @@ import Link from "next/link";
 export default async function Home() {
   let questionBankList: QuestionBank[] = [];
   let questionList: Question[] = [];
-  const getQuestionBankList = async (params: Record<string, any> = {}) => {
-    try {
-      const questionBankRes = await getQuestionBankByPageAPI({
-        page_no: 1,
-        page_size: 10,
-        ...params,
-      });
-      return questionBankRes.data.list || [];
-    } catch (error) {
-      console.log("获取题库列表失败", error);
-      return [];
-    }
-  };
+  try {
+    const questionBankRes = await getQuestionBankByPageAPI({
+      page_no: 1,
+      page_size: 10,
+    });
+    questionBankList = questionBankRes.data.list || [];
+  } catch (error) {
+    console.log("获取题库列表失败", error);
+  }
 
-  const getQuestionList = async (params: Record<string, any> = {}) => {
-    try {
-      const questionRes = await getQuestionByPageAPI({
-        page_no: 1,
-        page_size: 100,
-        ...params,
-      });
-      return questionRes.data.list || [];
-    } catch (error) {
-      console.log("获取题目列表失败", error);
-      return [];
-    }
-  };
-
-  questionList = await getQuestionList();
-  questionBankList = await getQuestionBankList();
+  try {
+    const questionRes = await getQuestionByPageAPI({
+      page_no: 1,
+      page_size: 100,
+    });
+    questionList = questionRes.data.list || [];
+  } catch (error) {
+    console.log("获取题目列表失败", error);
+  }
 
   return (
-    <>
+    <div className="max-width-container" id="home-page">
       <Flex
         justify="space-between"
         align="center"
@@ -65,6 +54,6 @@ export default async function Home() {
         <Link href="/question">查看全部</Link>
       </Flex>
       <QuestionList questionList={questionList} />
-    </>
+    </div>
   );
 }

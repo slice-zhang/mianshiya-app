@@ -70,7 +70,9 @@ const App = (props: Props) => {
               <UserProfile clickAvator={handleClickAvator} />
             </div>
           </Header>
-          <Content>{children}</Content>
+          <Content>
+            <div className="min-height-container">{children}</div>
+          </Content>
           <Footer className="footer">
             Ant Design ©2026 Created by Ant UED
           </Footer>
