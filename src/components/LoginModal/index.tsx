@@ -1,18 +1,13 @@
 "use client";
-import {
-  forwardRef,
-  useImperativeHandle,
-  useState,
-  memo,
-  useCallback,
-} from "react";
+import { forwardRef, useImperativeHandle, useState, memo } from "react";
 import { Button, Form, Input, message, Modal } from "antd";
 import Image from "next/image";
-import styles from "./index.module.scss";
+import "./index.scss";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { userLoginAPI, userRegisterAPI } from "@/api/user";
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "@/store/user";
+import { HasLoginStatus, LoginKey } from "@/constant";
 export interface ModalRef {
   open: () => void;
 }
@@ -51,6 +46,7 @@ const App = memo(
         const params = formInstance.getFieldsValue();
         const { data } = await userLoginAPI(params);
         dispatch(setUserInfo(data));
+        localStorage.setItem(LoginKey, HasLoginStatus);
         message.success("登录成功");
         handleCloseModal();
       } finally {
@@ -74,8 +70,8 @@ const App = memo(
 
     return (
       <Modal open={isModalOpen} footer={false} onCancel={handleCloseModal}>
-        <div>
-          <div className={styles.titleWrap}>
+        <div id="login-modal">
+          <div className="title-wrap">
             <Image
               src="https://github.githubassets.com/favicons/favicon.png"
               width={30}
@@ -84,7 +80,7 @@ const App = memo(
             />
             <h2>面试鸭</h2>
           </div>
-          <div className={styles.subTitle}>
+          <div className="sub-title">
             面试鸭是一个面试小助手，用于帮助用户快速了解面试中的常见问题，并给出相应的答案。
           </div>
           <Form form={formInstance}>
@@ -115,7 +111,7 @@ const App = memo(
               />
             </Form.Item>
           </Form>
-          <div className={styles.btnWrap}>
+          <div className="btn-wrap">
             <Button
               type="primary"
               loading={loading.login}

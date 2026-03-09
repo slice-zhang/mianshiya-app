@@ -37,7 +37,7 @@ const App = (props: Props) => {
       if (item.key === path) return;
       router.push(item.key);
     },
-    [path, router],
+    [path, router]
   );
 
   return (
@@ -70,9 +70,7 @@ const App = (props: Props) => {
               <UserProfile clickAvator={handleClickAvator} />
             </div>
           </Header>
-          <Content>
-            <div className="max-width-container">{children}</div>
-          </Content>
+          <Content>{children}</Content>
           <Footer className="footer">
             Ant Design ©2026 Created by Ant UED
           </Footer>

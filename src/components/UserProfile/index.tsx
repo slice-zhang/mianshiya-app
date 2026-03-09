@@ -9,6 +9,7 @@ import { SmileOutlined } from "@ant-design/icons";
 import { userLogoutAPI } from "@/api/user";
 import { DEFAULT_USER, setUserInfo } from "@/store/user";
 import { useRouter } from "next/navigation";
+import { LoginKey } from "@/constant";
 
 interface Props {
   clickAvator?: () => void;
@@ -34,6 +35,7 @@ const UserInfo: FC<Props> = ({ clickAvator }) => {
       // 退出登录
       await userLogoutAPI();
       dispatch(setUserInfo(DEFAULT_USER));
+      localStorage.removeItem(LoginKey);
       router.replace("/");
       message.success("退出登录成功");
     }
