@@ -24,12 +24,11 @@ export interface QuestionBank {
   user: {
     username: string;
   };
+  questionList?: Question[];
   /** 审核状态（0 待审核 1 审核成功 2 审核失败） */
   adult_status: AdultStatus;
   /** 排序优先级 */
   priority: number;
-  /** 浏览量 */
-  view_num: number;
   /** 创建时间（ISO 格式字符串） */
   created_at: string;
   /** 更新时间（ISO 格式字符串） */

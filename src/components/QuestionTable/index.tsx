@@ -20,14 +20,14 @@ import { difficultyOptions, vipOptions } from "@/app/admin/question/config";
 interface Props {
   questionList: Question[];
   total: number;
-  title: string;
+  title?: string;
 }
 
 const App = (props: Props) => {
   const [list, setListData] = useState<Question[]>(props.questionList);
   const [tableLoading, setTableLoading] = useState(false);
   const [searchParams, setSearchParams] = useState<Record<string, any>>({
-    title: props.title,
+    title: props.title || "",
   });
   const [pagination, setPagination] = useState<TablePaginationConfig>({
     current: 1,
@@ -85,7 +85,7 @@ const App = (props: Props) => {
         setTableLoading(false);
       }
     },
-    [pagination.current, pagination.pageSize, formInstance, tableLoading]
+    [pagination.current, pagination.pageSize, formInstance, tableLoading],
   );
 
   const pageChangeList = ({ current, pageSize }: TablePaginationConfig) => {

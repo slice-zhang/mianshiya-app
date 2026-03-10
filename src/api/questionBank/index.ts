@@ -8,7 +8,7 @@ import { QuestionBank, QuestionBankAdultLog } from "./type";
 export const getQuestionBankByPageAPI = (params: Record<string, any>) => {
   return GET<{ list: QuestionBank[]; [k: string]: any }>(
     "/questionBank/list",
-    params
+    params,
   );
 };
 
@@ -44,7 +44,7 @@ export const getQuestionBankAdultLogsAPI = (params: Record<string, any>) => {
  * @param params
  * @returns
  */
-export const questionBankDetailAPI = (params: { id: number }) => {
+export const questionBankDetailAPI = (params: Record<string, any>) => {
   return GET<QuestionBank>(`/questionBank/detail`, params);
 };
 

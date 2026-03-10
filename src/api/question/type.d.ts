@@ -19,13 +19,6 @@ export interface Question {
   adult_status: AuditStatus;
   /** 排序（非空，默认0） */
   priority: number;
-  /** 浏览量（默认0） */
-  view_num: number;
-  /** 点赞量（默认0） */
-  thumb_num: number;
-  /** 收藏量（默认0） */
-  favour_num: number;
-  /** 是否需要VIP查看（默认0） */
   need_vip?: VIPStatus;
   /** 创建用户ID（非空） */
   user_id: number;
