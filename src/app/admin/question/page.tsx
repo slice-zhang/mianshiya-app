@@ -60,18 +60,6 @@ const App: React.FC = () => {
       render: (_, record) => <div>{adultStatusMap[record.adult_status]}</div>,
     },
     {
-      title: "浏览量",
-      dataIndex: "view_num",
-    },
-    {
-      title: "点赞量",
-      dataIndex: "thumb_num",
-    },
-    {
-      title: "收藏量",
-      dataIndex: "favour_num",
-    },
-    {
       title: "是否需要vip",
       dataIndex: "need_vip",
       render: (_, record) => (
@@ -183,7 +171,7 @@ const App: React.FC = () => {
   }, [getQuestionList]);
 
   return (
-    <>
+    <div id="admin-question-page" className="max-width-container">
       <Form form={formInstance}>
         <Row gutter={[16, 24]}>
           <Col span={6}>
@@ -237,7 +225,7 @@ const App: React.FC = () => {
       <DetailModal ref={detailModalRef} onSubmit={getQuestionList} />
       <AdultModal ref={adultModalRef} onSubmit={getQuestionList} />
       <AdultLogsModal ref={adultLogsModalRef} />
-    </>
+    </div>
   );
 };
 

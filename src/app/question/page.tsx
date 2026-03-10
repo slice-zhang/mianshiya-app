@@ -26,6 +26,7 @@ export default async function QuestionPage({
       page_no: 1,
       page_size: 10,
       title: searchParamsData.q,
+      adult_status: 2,
     });
     const { list, total } = data;
     Object.assign(questionData, {

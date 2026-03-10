@@ -1,6 +1,7 @@
 "use client";
 import { QuestionBank } from "@/api/questionBank/type";
 import { Avatar, Card, List, Typography } from "antd";
+import Link from "next/link";
 
 interface Props {
   questionBankList: QuestionBank[];
@@ -12,7 +13,11 @@ export function QuestionBankList(props: Props) {
   const questionBankView = (questionBank: QuestionBank) => (
     <Card size="small">
       <Card.Meta
-        title={questionBank.title}
+        title={
+          <Link href={`/questionBank/${questionBank.id}`}>
+            {questionBank.title}
+          </Link>
+        }
         avatar={<Avatar src={questionBank.picture} />}
         description={
           <Typography.Paragraph

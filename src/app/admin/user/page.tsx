@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Col,
   Form,
@@ -135,7 +135,7 @@ const App: React.FC = () => {
   }, [pagination.current, pagination.pageSize]);
 
   return (
-    <>
+    <div id="admin-user-page" className="max-width-container">
       <Form form={formInstance}>
         <Row gutter={[16, 24]}>
           <Col span={6}>
@@ -171,7 +171,7 @@ const App: React.FC = () => {
         loading={tableLoading}
       />
       <DetailModal ref={detailModalRef} onSubmit={getUserList} />
-    </>
+    </div>
   );
 };
 

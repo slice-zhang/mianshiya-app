@@ -2,7 +2,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Col,
-  Flex,
   Form,
   Input,
   message,
@@ -58,10 +57,6 @@ const App: React.FC = () => {
       render: (_, record) => <div>{adultStatusMap[record.adult_status]}</div>,
     },
     {
-      title: "浏览量",
-      dataIndex: "view_num",
-    },
-    {
       title: "创建时间",
       dataIndex: "created_at",
     },
@@ -91,14 +86,12 @@ const App: React.FC = () => {
               审批
             </Button>
           )}
-          {Number(record.adult_status) === AdultStatus.SUCCESS && (
-            <Button type="link" onClick={() => handleEdit(record)}>
-              编辑
-            </Button>
-          )}
+          <Button type="link" onClick={() => handleEdit(record)}>
+            编辑
+          </Button>
 
           <Popconfirm
-            title="确定要删除该用户吗？"
+            title="确定要删除该题库吗？"
             onConfirm={() => handleDelete(record)}
             okText="确定"
             cancelText="取消"
@@ -166,7 +159,7 @@ const App: React.FC = () => {
   }, [getQuestionBankList]);
 
   return (
-    <>
+    <div id="admin-question-bank-page" className="max-width-container">
       <Form form={formInstance}>
         <Row gutter={[16, 24]}>
           <Col span={6}>
@@ -210,7 +203,7 @@ const App: React.FC = () => {
       <DetailModal ref={detailModalRef} onSubmit={getQuestionBankList} />
       <AdultModal ref={adultModalRef} onSubmit={getQuestionBankList} />
       <AdultLogsModal ref={adultLogsModalRef} />
-    </>
+    </div>
   );
 };
 

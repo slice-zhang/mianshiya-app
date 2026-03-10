@@ -10,6 +10,7 @@ export default async function QuestionBankPage() {
     const questionBankRes = await getQuestionBankByPageAPI({
       page_no: 1,
       page_size: 200,
+      adult_status: 2,
     });
     questionBankList = questionBankRes.data.list || [];
   } catch (error) {
